@@ -1,6 +1,8 @@
 package com.example.foodapp_doan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,8 @@ import com.example.foodapp_doan.R;
 import com.example.foodapp_doan.model.PRODUCTS;
 import com.example.foodapp_doan.utils.SERVER;
 import com.squareup.picasso.Picasso;
+
+import com.example.foodapp_doan.activity.detail_product_page;
 
 import java.util.ArrayList;
 
@@ -42,6 +46,18 @@ public class PRODUCT_ADAPTER extends RecyclerView.Adapter<PRODUCT_ADAPTER.produc
         holder.tvNameProduct.setText(products.getTensanpham());
         holder.tvPriceProduct.setText(products.getGiasanpham()+"");
         Picasso.get().load(SERVER.imgProduct+products.getHinhsanpham()).into(holder.imgProduct);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, detail_product_page.class);
+                Bundle bundleDetailProduct = new Bundle();
+                bundleDetailProduct.putString("name",products.getTensanpham());
+                bundleDetailProduct.putInt("gia",products.getGiasanpham());
+                bundleDetailProduct.putString("hinh",products.getHinhsanpham());
+                intent.putExtras(bundleDetailProduct);
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

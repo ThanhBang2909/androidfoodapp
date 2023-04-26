@@ -1,6 +1,7 @@
 package com.example.foodapp_doan.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.foodapp_doan.utils.SERVER;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
+import com.example.foodapp_doan.activity.product_by_category_page;
 
 public class CATEGORY_ADAPTER extends RecyclerView.Adapter<CATEGORY_ADAPTER.categoryViewholder>{
 
@@ -39,6 +41,14 @@ public class CATEGORY_ADAPTER extends RecyclerView.Adapter<CATEGORY_ADAPTER.cate
         CATEGORY category =dataCategory.get(position);
         holder.tvCategory.setText(category.getTenChude());
         Picasso.get().load(SERVER.imgCategory+category.getHinhChude()).into(holder.imgCategory);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,product_by_category_page.class);
+                intent.putExtra("macd", category.getMaChude());
+                context.startActivity(intent);
+            }
+        });
     }
 
     @Override

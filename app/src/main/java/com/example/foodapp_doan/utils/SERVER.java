@@ -7,4 +7,5 @@ public class SERVER {
     public static String imgCategory = serverip +":8080/csdlfoodapp/category/";
     public static String imgProduct = serverip + ":8080/csdlfoodapp/products/";
     public static String productpath = serverip + ":8080/csdlfoodapp/products.php";
+    public static String productBycategory = serverip + ":8080/csdlfoodapp/productByCategory.php";
 }
