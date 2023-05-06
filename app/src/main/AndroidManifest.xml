@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".changePassword_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity.cart_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity.edit_profile_page"
+            android:exported="false" />
+        <activity
             android:name=".activity.detail_product_page"
             android:exported="false" />
         <activity

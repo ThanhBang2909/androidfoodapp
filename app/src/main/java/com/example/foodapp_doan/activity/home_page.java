@@ -1,10 +1,15 @@
 package com.example.foodapp_doan.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -43,6 +48,8 @@ public class home_page extends Fragment {
     private Handler handler = new Handler();
     private SLIDES_ADAPTER slides_adapter;
 
+    private ImageView btnCart;
+
     private CATEGORY_ADAPTER category_adapter;
     private ArrayList<CATEGORY> dataCategory = new ArrayList<>();
     private RecyclerView recyclerViewCategory;
@@ -50,6 +57,8 @@ public class home_page extends Fragment {
     private PRODUCT_ADAPTER product_adapter;
     private ArrayList<PRODUCTS> dataProduct = new ArrayList<>();
     private RecyclerView recyclerViewProduct;
+
+    private EditText edtSeachProducts;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -65,7 +74,8 @@ public class home_page extends Fragment {
         View view = inflater.inflate(R.layout.home_page, container, false);
         anhxa(view);
         loadSlides();
-
+        eventClick();
+        seachProducts();
         return view;
     }
 
@@ -163,9 +173,40 @@ public class home_page extends Fragment {
         recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
     }
 
+    private void eventClick(){
+        btnCart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getActivity(), cart_page.class);
+                startActivity(intent);
+            }
+        });
+    }
+
+    private void seachProducts(){
+        edtSeachProducts.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String chuoitim = charSequence.toString();
+                product_adapter.getFilter().filter(chuoitim);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
     void anhxa(View view){
         viewPager2 = view.findViewById(R.id.home_viewPager);
         recyclerViewCategory = view.findViewById(R.id.home_category);
         recyclerViewProduct = view.findViewById(R.id.home_products);
+        btnCart = view.findViewById(R.id.btnCart);
+        edtSeachProducts = view.findViewById(R.id.home_edtSeach);
     }
 }

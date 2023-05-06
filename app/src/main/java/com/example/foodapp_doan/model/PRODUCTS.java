@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class PRODUCTS implements Serializable {
 
     private String masanpham, machude, tensanpham, hinhsanpham;
-    private int giasanpham;
+    private int giasanpham, soluong;
 
     public PRODUCTS(String masanpham, String machude, String tensanpham, String hinhsanpham, int giasanpham) {
         this.masanpham = masanpham;
@@ -13,6 +13,49 @@ public class PRODUCTS implements Serializable {
         this.tensanpham = tensanpham;
         this.hinhsanpham = hinhsanpham;
         this.giasanpham = giasanpham;
+    }
+
+    public PRODUCTS(String tensanpham, String hinhsanpham, int giasanpham) {
+        this.tensanpham = tensanpham;
+        this.hinhsanpham = hinhsanpham;
+        this.giasanpham = giasanpham;
+    }
+
+    public PRODUCTS(String masanpham,  String tensanpham, String hinhsanpham, int giasanpham, int soluong) {
+        this.masanpham = masanpham;
+        this.tensanpham = tensanpham;
+        this.hinhsanpham = hinhsanpham;
+        this.giasanpham = giasanpham;
+        this.soluong = soluong;
+    }
+
+    public PRODUCTS(String masanpham, String machude, String tensanpham, String hinhsanpham, int giasanpham, int soluong) {
+        this.masanpham = masanpham;
+        this.machude = machude;
+        this.tensanpham = tensanpham;
+        this.hinhsanpham = hinhsanpham;
+        this.giasanpham = giasanpham;
+        this.soluong = soluong;
+    }
+
+    public PRODUCTS(String masanpham, String tensanpham, String hinhsanpham, int giasanpham) {
+        this.masanpham = masanpham;
+        this.tensanpham = tensanpham;
+        this.hinhsanpham = hinhsanpham;
+        this.giasanpham = giasanpham;
+    }
+
+    public PRODUCTS() {
+
+    }
+
+
+    public int getSoluong() {
+        return soluong;
+    }
+
+    public void setSoluong(int soluong) {
+        this.soluong = soluong;
     }
 
     public String getMasanpham() {

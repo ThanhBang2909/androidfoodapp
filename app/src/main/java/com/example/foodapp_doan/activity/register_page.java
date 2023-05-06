@@ -24,16 +24,14 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.example.foodapp_doan.utils.validate;
+import com.example.foodapp_doan.utils.SERVER;
 
 
 public class register_page extends AppCompatActivity {
 
     private EditText emailReg, passwordReg, fullNameReg, addressReg, phoneReg;
-    private String URL = "http://192.168.44.113:8080/csdlfoodapp/register.php";
     private String email, password, fullName, address, phone;
     private Button btnReg;
-    validate validate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,55 +45,59 @@ public class register_page extends AppCompatActivity {
         btnReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                fullName = fullNameReg.getText().toString().trim();
-                email = emailReg.getText().toString().trim();
-                password = passwordReg.getText().toString().trim();
-                address = addressReg.getText().toString().trim();
-                phone = phoneReg.getText().toString().trim();
-
-                if (!email.equals("") && !password.equals("") && !fullName.equals("") && !address.equals("") && !phone.equals("")) {
-                    if (isValidPassword(password)) {
-                        StringRequest stringRequest = new StringRequest(Request.Method.POST, URL, new Response.Listener<String>() {
-                            @Override
-                            public void onResponse(String response) {
-                                Toast.makeText(register_page.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
-                                if (response.equals("Success")) {
-                                    Toast.makeText(register_page.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(register_page.this, login_page.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else if (response.equals("Failure")) {
-                                    Toast.makeText(register_page.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        }, new Response.ErrorListener() {
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
-                            }
-                        }) {
-                            @Nullable
-                            @Override
-                            protected Map<String, String> getParams() throws AuthFailureError {
-                                Map<String, String> data = new HashMap<>();
-                                data.put("email", email);
-                                data.put("password", password);
-                                data.put("fullName", fullName);
-                                data.put("address", address);
-                                data.put("phone", phone);
-                                return data;
-                            }
-                        };
-                        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                        requestQueue.add(stringRequest);
-                    } else {
-                        Toast.makeText(register_page.this, "Mật khẩu phải từ 4 kí tự có kí tuwh thường, hoa, số, và kí tự đặc biệt", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(register_page.this, "Các trường không thể trống", Toast.LENGTH_SHORT).show();
-                }
+                register();
             }
         });
+    }
+
+    void register(){
+        fullName = fullNameReg.getText().toString().trim();
+        email = emailReg.getText().toString().trim();
+        password = passwordReg.getText().toString().trim();
+        address = addressReg.getText().toString().trim();
+        phone = phoneReg.getText().toString().trim();
+
+        if (!email.equals("") && !password.equals("") && !fullName.equals("") && !address.equals("") && !phone.equals("")) {
+            if (isValidPassword(password)) {
+                StringRequest stringRequest = new StringRequest(Request.Method.POST, SERVER.register, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Toast.makeText(register_page.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
+                        if (response.equals("Success")) {
+                            Toast.makeText(register_page.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(register_page.this, login_page.class);
+                            startActivity(intent);
+                            finish();
+                        } else if (response.equals("Failure")) {
+                            Toast.makeText(register_page.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(getApplicationContext(), error.toString().trim(), Toast.LENGTH_SHORT).show();
+                    }
+                }) {
+                    @Nullable
+                    @Override
+                    protected Map<String, String> getParams() throws AuthFailureError {
+                        Map<String, String> data = new HashMap<>();
+                        data.put("email", email);
+                        data.put("password", password);
+                        data.put("fullName", fullName);
+                        data.put("address", address);
+                        data.put("phone", phone);
+                        return data;
+                    }
+                };
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(stringRequest);
+            } else {
+                Toast.makeText(register_page.this, "Mật khẩu phải từ 4 kí tự có kí tuwh thường, hoa, số, và kí tự đặc biệt", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(register_page.this, "Các trường không thể trống", Toast.LENGTH_SHORT).show();
+        }
     }
 
     public boolean isValidPassword(final String password) {

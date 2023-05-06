@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 
+import com.example.foodapp_doan.activity.edit_profile_page;
 import com.example.foodapp_doan.activity.home_page;
 import com.example.foodapp_doan.activity.notification_page;
 import com.example.foodapp_doan.activity.profile_page;
@@ -19,6 +21,8 @@ public class MainActivity extends AppCompatActivity {
     BottomNavigationView bottomNavigationView;
     Fragment fragment;
     FragmentTransaction transaction;
+    Intent intent;
+    String email;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
