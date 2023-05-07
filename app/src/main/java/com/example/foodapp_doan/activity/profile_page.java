@@ -1,10 +1,14 @@
 package com.example.foodapp_doan.activity;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -12,6 +16,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.RequestQueue;
@@ -20,6 +25,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodapp_doan.R;
+import com.example.foodapp_doan.sqlite.productsDAO;
 import com.example.foodapp_doan.utils.SERVER;
 import com.squareup.picasso.Picasso;
 
@@ -31,11 +37,12 @@ public class profile_page extends Fragment {
 
     private LinearLayout editProfile;
     private String email;
-    private Intent intent;
     private ImageView imgAvartar;
     private String fullName, phone, Address, avartar, password;
     private TextView tvFullNames;
     private TextView changePassword;
+    private Button btnSignOut;
+    public SharedPreferences sharedPreferences;
 
     @Nullable
     @Override
@@ -67,8 +74,17 @@ public class profile_page extends Fragment {
         changePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getActivity(), changePassword_page.class);
+                Intent intent = new Intent(getContext(), changePassword_page.class);
+                intent.putExtra("password", password);
+                intent.putExtra("email", email);
                 startActivity(intent);
+            }
+        });
+
+        btnSignOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                notification();
             }
         });
 
@@ -109,11 +125,41 @@ public class profile_page extends Fragment {
 
     }
 
+    void notification(){
+        AlertDialog.Builder builder1 = new AlertDialog.Builder(getContext());
+        builder1.setMessage("Bạn có muốn đăng xuất ứng dụng không");
+        builder1.setCancelable(true);
+
+        builder1.setPositiveButton(
+                "No",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+
+        builder1.setNegativeButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        Intent intent = new Intent(getContext(), login_page.class);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.clear();
+                        editor.apply();
+                        startActivity(intent);
+                    }
+                });
+        AlertDialog alert11 = builder1.create();
+        alert11.show();
+    }
+
     void anhxa(View view){
         editProfile = view.findViewById(R.id.editProfile);
         imgAvartar = view.findViewById(R.id.imgAvartar);
         tvFullNames = view.findViewById(R.id.tvNameCus);
         changePassword = view.findViewById(R.id.changePassword);
-        email = login_page.emailUser;
+        btnSignOut = view.findViewById(R.id.btnSignOut);
+        sharedPreferences = getContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
+        email = sharedPreferences.getString("email","");
     }
 }

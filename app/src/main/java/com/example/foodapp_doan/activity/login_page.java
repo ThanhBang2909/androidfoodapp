@@ -33,6 +33,7 @@ public class login_page extends AppCompatActivity {
     private Button btnLogin, btnBackRegister;
     public static SharedPreferences sharedPreferences ;
     public static String emailUser;
+    public static boolean isFirtstTimeLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +63,7 @@ public class login_page extends AppCompatActivity {
     }
 
     void checkLogin(){
-        boolean isFirtstTimeLogin = sharedPreferences.getBoolean("isFirstTimeLogin", true);
+        isFirtstTimeLogin = sharedPreferences.getBoolean("isFirstTimeLogin", true);
 
         if (isFirtstTimeLogin){
             login();
@@ -84,7 +85,9 @@ public class login_page extends AppCompatActivity {
                 public void onResponse(String response) {
                     if (response.equals("Success")) {
                         Intent intent = new Intent(login_page.this, MainActivity.class);
-                        emailUser = sharedPreferences.getString("email", email);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("email", email);
+                        editor.apply();
                         startActivity(intent);
                     } else if (response.equals("Failure")) {
                         Toast.makeText(login_page.this, "Sai Email hoặc Password", Toast.LENGTH_SHORT).show();
