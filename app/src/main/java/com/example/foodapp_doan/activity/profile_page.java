@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +26,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodapp_doan.R;
+import com.example.foodapp_doan.model.USERS;
 import com.example.foodapp_doan.sqlite.productsDAO;
 import com.example.foodapp_doan.utils.SERVER;
 import com.squareup.picasso.Picasso;
@@ -33,16 +35,19 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
+
 public class profile_page extends Fragment {
 
     private LinearLayout editProfile;
-    private String email;
+    public static String email;
     private ImageView imgAvartar;
     private String fullName, phone, Address, avartar, password;
     private TextView tvFullNames;
     private TextView changePassword;
     private Button btnSignOut;
     public SharedPreferences sharedPreferences;
+    public static ArrayList<USERS> users = new ArrayList<>();
 
     @Nullable
     @Override
@@ -51,7 +56,6 @@ public class profile_page extends Fragment {
         anhxa(view);
         eventClick();
         GetUserByEmail(email);
-
         return view;
     }
 
@@ -122,7 +126,6 @@ public class profile_page extends Fragment {
         };
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, thanhcong, thatbai);
         requestQueue.add(jsonArrayRequest);
-
     }
 
     void notification(){
@@ -144,6 +147,7 @@ public class profile_page extends Fragment {
                     public void onClick(DialogInterface dialog, int id) {
                         Intent intent = new Intent(getContext(), login_page.class);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putBoolean("isFirstTimeLogin", true);
                         editor.clear();
                         editor.apply();
                         startActivity(intent);
@@ -153,6 +157,7 @@ public class profile_page extends Fragment {
         alert11.show();
     }
 
+
     void anhxa(View view){
         editProfile = view.findViewById(R.id.editProfile);
         imgAvartar = view.findViewById(R.id.imgAvartar);
@@ -161,5 +166,6 @@ public class profile_page extends Fragment {
         btnSignOut = view.findViewById(R.id.btnSignOut);
         sharedPreferences = getContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("email","");
+        users.add(new USERS(fullName,Address,phone,avartar,password));
     }
 }

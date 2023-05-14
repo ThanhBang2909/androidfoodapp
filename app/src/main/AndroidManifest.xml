@@ -18,6 +18,15 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".activity.address_delivery_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity.splash_screen_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity.check_out_page"
+            android:exported="false" />
+        <activity
             android:name=".activity.changePassword_page"
             android:exported="false" />
         <activity

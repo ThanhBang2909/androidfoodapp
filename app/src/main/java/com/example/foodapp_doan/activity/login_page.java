@@ -66,10 +66,7 @@ public class login_page extends AppCompatActivity {
         isFirtstTimeLogin = sharedPreferences.getBoolean("isFirstTimeLogin", true);
 
         if (isFirtstTimeLogin){
-            login();
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putBoolean("isFirstTimeLogin", false);
-            editor.apply();
+
         }else {
             Intent intent = new Intent(login_page.this, MainActivity.class);
             startActivity(intent);
@@ -87,6 +84,7 @@ public class login_page extends AppCompatActivity {
                         Intent intent = new Intent(login_page.this, MainActivity.class);
                         SharedPreferences.Editor editor = sharedPreferences.edit();
                         editor.putString("email", email);
+                        editor.putBoolean("isFirstTimeLogin", false);
                         editor.apply();
                         startActivity(intent);
                     } else if (response.equals("Failure")) {

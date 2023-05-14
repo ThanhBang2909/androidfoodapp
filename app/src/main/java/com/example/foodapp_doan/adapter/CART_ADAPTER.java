@@ -80,6 +80,8 @@ public class CART_ADAPTER extends RecyclerView.Adapter<CART_ADAPTER.cartViewhold
                 }
             }
         });
+
+        updateTotal();
     }
 
     @Override
@@ -91,10 +93,8 @@ public class CART_ADAPTER extends RecyclerView.Adapter<CART_ADAPTER.cartViewhold
 
         ImageView cart_img;
         TextView cart_name, cart_price;
-        int numberOrder = 1;
         Button cart_delete;
-        TextView cart_quantity, cart_min, cart_max;
-
+        TextView cart_quantity, cart_min, cart_max, cart_total;
 
         public cartViewholder(@NonNull View itemView) {
             super(itemView);
@@ -106,6 +106,7 @@ public class CART_ADAPTER extends RecyclerView.Adapter<CART_ADAPTER.cartViewhold
             cart_quantity = itemView.findViewById(R.id.cart_quantity);
             cart_max = itemView.findViewById(R.id.cart_max);
             cart_delete = itemView.findViewById(R.id.cart_delete);
+            cart_total = itemView.findViewById(R.id.cart_total);
         }
     }
 
@@ -142,7 +143,7 @@ public class CART_ADAPTER extends RecyclerView.Adapter<CART_ADAPTER.cartViewhold
     }
 
     private void updateTotal() {
-        int total = 0;
+        double total = 0;
         for (PRODUCTS sp : data) {
             total += sp.getGiasanpham() * sp.getSoluong();
         }

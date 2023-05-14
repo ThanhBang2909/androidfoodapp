@@ -1,6 +1,8 @@
 package com.example.foodapp_doan.activity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -10,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -20,6 +23,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -60,12 +64,15 @@ public class home_page extends Fragment {
 
     private EditText edtSeachProducts;
 
+//    private ProgressBar progressBar;
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhxa(view);
         loadCategory();
-        loadProduct();
+        //loadProduct();
+        new LoadData().execute();
     }
 
     @Nullable
@@ -140,39 +147,6 @@ public class home_page extends Fragment {
         recyclerViewCategory.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false ));
     }
 
-    void loadProduct() {
-        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-        Response.Listener<JSONArray> thanhcong = new Response.Listener<JSONArray>() {
-            @Override
-            public void onResponse(JSONArray jsonArray) {
-                for (int i = 0; i < jsonArray.length(); i++) {
-                    try {
-                        JSONObject jsonObject = jsonArray.getJSONObject(i);
-                        dataProduct.add(new PRODUCTS(jsonObject.getString("masp"),
-                                jsonObject.getString("machude"),
-                                jsonObject.getString("tensp"),
-                                jsonObject.getString("hinhsp"),
-                                jsonObject.getInt("giasp")));
-                    } catch (JSONException e) {
-                        Toast.makeText(getContext(), "Lỗi ", Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-        };
-        Response.ErrorListener thatbai = new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
-            }
-        };
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(SERVER.productpath, thanhcong, thatbai);
-        requestQueue.add(jsonArrayRequest);
-
-        product_adapter = new PRODUCT_ADAPTER(getContext(), dataProduct);
-        recyclerViewProduct.setAdapter(product_adapter);
-        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
-    }
-
     private void eventClick(){
         btnCart.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -202,11 +176,67 @@ public class home_page extends Fragment {
             }
         });
     }
+
+    class LoadData extends AsyncTask<Void, Void, ArrayList<PRODUCTS>>{
+
+        public LoadData() {
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Toast.makeText(getActivity(), "Đang load ", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        protected ArrayList<PRODUCTS> doInBackground(Void... voids) {
+            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+            Response.Listener<JSONArray> thanhcong = new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray jsonArray) {
+                    for (int i = 0; i < jsonArray.length(); i++) {
+                        try {
+                            JSONObject jsonObject = jsonArray.getJSONObject(i);
+                            dataProduct.add(new PRODUCTS(jsonObject.getString("masp"),
+                                    jsonObject.getString("machude"),
+                                    jsonObject.getString("tensp"),
+                                    jsonObject.getString("hinhsp"),
+                                    jsonObject.getInt("giasp")));
+                        } catch (JSONException e) {
+                            Toast.makeText(getContext(), "Lỗi ", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                }
+            };
+            Response.ErrorListener thatbai = new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
+                }
+            };
+            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(SERVER.productpath, thanhcong, thatbai);
+            requestQueue.add(jsonArrayRequest);
+            return dataProduct;
+        }
+
+        @Override
+        protected void onPostExecute(ArrayList<PRODUCTS> products) {
+            super.onPostExecute(products);
+            product_adapter = new PRODUCT_ADAPTER(getContext(), products);
+            recyclerViewProduct.setAdapter(product_adapter);
+            recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        }
+
+    }
+
     void anhxa(View view){
         viewPager2 = view.findViewById(R.id.home_viewPager);
         recyclerViewCategory = view.findViewById(R.id.home_category);
         recyclerViewProduct = view.findViewById(R.id.home_products);
         btnCart = view.findViewById(R.id.btnCart);
         edtSeachProducts = view.findViewById(R.id.home_edtSeach);
+//        progressBar = view.findViewById(R.id.progressBarCircular);
     }
 }
+
+

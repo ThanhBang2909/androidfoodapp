@@ -14,4 +14,5 @@ public class SERVER {
     public static String imgAvartar = serverip + ":8080/csdlfoodapp/avartar/";
     public static String updateProfilePath = serverip + ":8080/csdlfoodapp/updateProfile.php";
     public static String changePasswordPath = serverip + ":8080/csdlfoodapp/changePassword.php";
+    public static String getAddressDeliveryPath = serverip + ":8080/csdlfoodapp/getAddressByEmail.php";
 }

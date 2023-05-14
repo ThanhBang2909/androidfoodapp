@@ -30,10 +30,11 @@ public class cart_page extends AppCompatActivity {
     private RecyclerView rvCart;
     private CART_ADAPTER adapter_cart;
     private Context context;
-    private ArrayList<PRODUCTS> dataSP = new ArrayList<>();
+    public ArrayList<PRODUCTS> dataSP = new ArrayList<>();
     private SQLiteDatabase db;
     private productsDAO productsDAO;
     private ImageView btnBack;
+    public double totalPrice = 0;
 
     private String iD, name, image;
     private int quantity,price;
@@ -45,6 +46,7 @@ public class cart_page extends AppCompatActivity {
         anhxa();
         eventClick();
         getCart();
+        getTotalPrice();
     }
 
     private void eventClick(){
@@ -52,6 +54,15 @@ public class cart_page extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        checkout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(cart_page.this, check_out_page.class);
+                intent.putExtra("cart_total", cart_total.getText().toString().trim());
+                startActivity(intent);
             }
         });
     }
@@ -74,8 +85,14 @@ public class cart_page extends AppCompatActivity {
         rvCart.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
+    void getTotalPrice(){
+        for (PRODUCTS sp : dataSP) {
+            totalPrice += sp.getGiasanpham() * sp.getSoluong();
+        }
+    }
+
     public void updateTotal(double total) {
-        cart_total.setText(total+"");
+        cart_total.setText(total+"Đ");
     }
 
     void anhxa(){
@@ -83,6 +100,7 @@ public class cart_page extends AppCompatActivity {
         checkout = findViewById(R.id.btnCheckout);
         rvCart = findViewById(R.id.rvCart);
         btnBack = findViewById(R.id.btnBack);
+        cart_total.setText(totalPrice + "Đ");
         context = this;
 
         try {

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="#4A393D40"
+    android:background="#37393D40"
     android:orientation="vertical">
 
     <LinearLayout
@@ -53,13 +53,26 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="  Đổi mật khẩu"
-        android:textSize="25sp"
+        android:textSize="22sp"
         android:textColor="@color/black"
         android:textStyle="bold"
         android:background="@color/white"
-        android:padding="5dp"
+        android:padding="7dp"
         android:layout_marginTop="10dp"
         android:drawableStart="@drawable/ic_baseline_lock_24"/>
+
+    <TextView
+        android:id="@+id/tvDieuKhoang"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="  Điều khoảng và chính sách"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/white"
+        android:padding="7dp"
+        android:layout_marginTop="2dp"
+        android:drawableStart="@drawable/ic_baseline_report_24"/>
 
     <Button
         android:id="@+id/btnSignOut"
