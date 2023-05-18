@@ -62,6 +62,19 @@
         android:drawableStart="@drawable/ic_baseline_lock_24"/>
 
     <TextView
+        android:id="@+id/Transaction_history"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="  Lịch sử mua hàng"
+        android:textSize="22sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:background="@color/white"
+        android:padding="7dp"
+        android:layout_marginTop="2dp"
+        android:drawableStart="@drawable/ic_baseline_lock_24"/>
+
+    <TextView
         android:id="@+id/tvDieuKhoang"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

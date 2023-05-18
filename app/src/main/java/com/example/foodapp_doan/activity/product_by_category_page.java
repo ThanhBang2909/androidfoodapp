@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -16,7 +19,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodapp_doan.R;
-import com.example.foodapp_doan.adapter.ProductByCategory_ADAPTER;
+import com.example.foodapp_doan.adapter.PRODUCT_BY_CATOROGY;
 import com.example.foodapp_doan.model.PRODUCTS;
 import com.example.foodapp_doan.utils.SERVER;
 
@@ -28,11 +31,12 @@ import java.util.ArrayList;
 
 public class product_by_category_page extends AppCompatActivity {
 
-    private ProductByCategory_ADAPTER productByCategory_adapter;
+    private PRODUCT_BY_CATOROGY productByCategory_adapter;
     private ArrayList<PRODUCTS> dataProducts = new ArrayList<>();
     private RecyclerView rvProductByCategory;
     private ImageView btnBack;
     private String macd;
+    private EditText seachProducByCategory;
     Intent intent;
 
     @Override
@@ -40,9 +44,8 @@ public class product_by_category_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_by_category_page);
         anhxa();
-        intent = getIntent();
-        macd = intent.getStringExtra("macd");
         loadProduct(macd);
+        seachProducts();
         eventClick();
     }
 
@@ -56,10 +59,11 @@ public class product_by_category_page extends AppCompatActivity {
                     try {
                         JSONObject jsonObject = jsonArray.getJSONObject(i);
                         dataProducts.add(new PRODUCTS(jsonObject.getString("masp"),
-                                jsonObject.getString("machude"),
+                                jsonObject.getString("macd"),
                                 jsonObject.getString("tensp"),
                                 jsonObject.getString("hinhsp"),
                                 jsonObject.getInt("giasp")));
+                        productByCategory_adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         Toast.makeText(product_by_category_page.this, e.getMessage(), Toast.LENGTH_LONG).show();
                     }
@@ -75,10 +79,29 @@ public class product_by_category_page extends AppCompatActivity {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(url, thanhcong, thatbai);
         requestQueue.add(jsonArrayRequest);
 
-        productByCategory_adapter = new ProductByCategory_ADAPTER(this, dataProducts);
-        rvProductByCategory.setAdapter(productByCategory_adapter);
-        rvProductByCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
     }
+
+
+    private void seachProducts(){
+        seachProducByCategory.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                String chuoitim = charSequence.toString();
+                productByCategory_adapter.getFilter().filter(chuoitim);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
 
     void eventClick(){
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -89,8 +112,18 @@ public class product_by_category_page extends AppCompatActivity {
         });
     }
 
+
+
     void anhxa(){
         rvProductByCategory = findViewById(R.id.rvProductByCategory);
         btnBack = findViewById(R.id.btnBack);
+        seachProducByCategory = findViewById(R.id.seachProducByCategory);
+
+        productByCategory_adapter = new PRODUCT_BY_CATOROGY(this, dataProducts);
+        rvProductByCategory.setAdapter(productByCategory_adapter);
+        rvProductByCategory.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL,false));
+
+        intent = getIntent();
+        macd = intent.getStringExtra("macd");
     }
 }

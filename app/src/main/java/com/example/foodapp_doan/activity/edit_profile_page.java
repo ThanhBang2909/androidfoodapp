@@ -51,6 +51,7 @@ public class edit_profile_page extends AppCompatActivity {
 
     }
 
+
     void eventClick(){
         btnBackProfilePage.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,13 +59,17 @@ public class edit_profile_page extends AppCompatActivity {
                 finish();
             }
         });
+
+
         btnSaveProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 updateProfile();
             }
         });
+
     }
+
 
     void getProfile(){
         intent = getIntent();
@@ -81,6 +86,7 @@ public class edit_profile_page extends AppCompatActivity {
         profile_phone.setText(phone);
         Picasso.get().load(SERVER.imgAvartar+avartar).into(imgAvartar);
     }
+
 
     void updateProfile(){
         email = profile_email.getText().toString();
@@ -117,6 +123,7 @@ public class edit_profile_page extends AppCompatActivity {
         RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
         requestQueue.add(stringRequest);
     }
+
 
     void anhxa(){
         btnBackProfilePage = findViewById(R.id.btnBackProfiePage);

@@ -42,6 +42,7 @@ public class detail_product_page extends AppCompatActivity {
             }
         });
 
+
         btnAddtocart.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -55,6 +56,7 @@ public class detail_product_page extends AppCompatActivity {
             }
         });
 
+
         btnMax.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +66,7 @@ public class detail_product_page extends AppCompatActivity {
                 }
             }
         });
+
 
         btnMin.setOnClickListener(new View.OnClickListener() {
             @Override

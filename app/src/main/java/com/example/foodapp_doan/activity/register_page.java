@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -32,6 +33,7 @@ public class register_page extends AppCompatActivity {
     private EditText emailReg, passwordReg, fullNameReg, addressReg, phoneReg;
     private String email, password, fullName, address, phone;
     private Button btnReg;
+    private TextView  tvLogin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,15 @@ public class register_page extends AppCompatActivity {
                 register();
             }
         });
+
+        tvLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
+
 
     void register(){
         fullName = fullNameReg.getText().toString().trim();
@@ -62,7 +72,6 @@ public class register_page extends AppCompatActivity {
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, SERVER.register, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        Toast.makeText(register_page.this, "Email đã tồn tại", Toast.LENGTH_SHORT).show();
                         if (response.equals("Success")) {
                             Toast.makeText(register_page.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(register_page.this, login_page.class);
@@ -93,12 +102,18 @@ public class register_page extends AppCompatActivity {
                 RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
                 requestQueue.add(stringRequest);
             } else {
-                Toast.makeText(register_page.this, "Mật khẩu phải từ 4 kí tự có kí tuwh thường, hoa, số, và kí tự đặc biệt", Toast.LENGTH_SHORT).show();
+                Toast.makeText(register_page.this, "Mật khẩu phải từ 4 kí tự có kí tự thường, hoa, số, và kí tự đặc biệt", Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(register_page.this, "Các trường không thể trống", Toast.LENGTH_SHORT).show();
+            emailReg.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            passwordReg.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            fullNameReg.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            addressReg.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            phoneReg.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            Toast.makeText(register_page.this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     public boolean isValidPassword(final String password) {
 
@@ -113,6 +128,7 @@ public class register_page extends AppCompatActivity {
         return matcher.matches();
     }
 
+
     void anhxa(){
         emailReg = findViewById(R.id.emailReg);
         passwordReg = findViewById(R.id.passwordReg);
@@ -120,6 +136,7 @@ public class register_page extends AppCompatActivity {
         addressReg = findViewById(R.id.addressReg);
         phoneReg = findViewById(R.id.phoneReg);
         btnReg = findViewById(R.id.btnRegister);
+        tvLogin = findViewById(R.id.tvLogin);
         email = password = fullName = address = phone = "";
     }
 

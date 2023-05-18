@@ -64,15 +64,15 @@ public class home_page extends Fragment {
 
     private EditText edtSeachProducts;
 
-//    private ProgressBar progressBar;
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhxa(view);
         loadCategory();
-        //loadProduct();
-        new LoadData().execute();
+        loadProduct();
+
     }
 
     @Nullable
@@ -86,11 +86,13 @@ public class home_page extends Fragment {
         return view;
     }
 
+
     void loadSlides(){
         dataSlides = new ArrayList<>();
-        dataSlides.add(new SLIDES(SERVER.slidepath+"slides01.png", "link"));
-        dataSlides.add(new SLIDES(SERVER.slidepath+"slides02.jpeg", "link"));
-        dataSlides.add(new SLIDES(SERVER.slidepath+"slides03.jpeg", "link"));
+        dataSlides.add(new SLIDES(SERVER.slidepath+"slides2.jpeg", "link"));
+        dataSlides.add(new SLIDES(SERVER.slidepath+"slides3.jpeg", "link"));
+        dataSlides.add(new SLIDES(SERVER.slidepath+"slides4.png", "link"));
+        dataSlides.add(new SLIDES(SERVER.slidepath+"slides5.jpeg", "link"));
 
         slides_adapter = new SLIDES_ADAPTER(dataSlides, getContext());
         viewPager2.setAdapter(slides_adapter);
@@ -105,6 +107,7 @@ public class home_page extends Fragment {
         });
     }
 
+
     private Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -115,6 +118,7 @@ public class home_page extends Fragment {
             }
         }
     };
+
 
     void loadCategory() {
         RequestQueue requestQueue = Volley.newRequestQueue(getContext());
@@ -127,6 +131,7 @@ public class home_page extends Fragment {
                         dataCategory.add(new CATEGORY(jsonObject.getString("macd"),
                                 jsonObject.getString("tencd"),
                                 jsonObject.getString("hinhcd")));
+                        category_adapter.notifyDataSetChanged();
                     } catch (JSONException e) {
                         Toast.makeText(getContext(), "Lỗi", Toast.LENGTH_LONG).show();
                     }
@@ -142,10 +147,40 @@ public class home_page extends Fragment {
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(SERVER.category, thanhcong, thatbai);
         requestQueue.add(jsonArrayRequest);
 
-        category_adapter = new CATEGORY_ADAPTER(getContext(), dataCategory);
-        recyclerViewCategory.setAdapter(category_adapter);
-        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false ));
     }
+
+
+
+    private void loadProduct(){
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        Response.Listener<JSONArray> thanhcong = new Response.Listener<JSONArray>() {
+            @Override
+            public void onResponse(JSONArray jsonArray) {
+                for (int i = 0; i < jsonArray.length(); i++) {
+                    try {
+                        JSONObject jsonObject = jsonArray.getJSONObject(i);
+                        dataProduct.add(new PRODUCTS(jsonObject.getString("masp"),
+                                jsonObject.getString("macd"),
+                                jsonObject.getString("tensp"),
+                                jsonObject.getString("hinhsp"),
+                                jsonObject.getInt("giasp")));
+                        product_adapter.notifyDataSetChanged();
+                    } catch (JSONException e) {
+                        Toast.makeText(getContext(), "Lỗi ", Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+        };
+        Response.ErrorListener thatbai = new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
+            }
+        };
+        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(SERVER.productpath, thanhcong, thatbai);
+        requestQueue.add(jsonArrayRequest);
+    }
+
 
     private void eventClick(){
         btnCart.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +191,7 @@ public class home_page extends Fragment {
             }
         });
     }
+
 
     private void seachProducts(){
         edtSeachProducts.addTextChangedListener(new TextWatcher() {
@@ -177,57 +213,6 @@ public class home_page extends Fragment {
         });
     }
 
-    class LoadData extends AsyncTask<Void, Void, ArrayList<PRODUCTS>>{
-
-        public LoadData() {
-        }
-
-        @Override
-        protected void onPreExecute() {
-            super.onPreExecute();
-            Toast.makeText(getActivity(), "Đang load ", Toast.LENGTH_SHORT).show();
-        }
-
-        @Override
-        protected ArrayList<PRODUCTS> doInBackground(Void... voids) {
-            RequestQueue requestQueue = Volley.newRequestQueue(getContext());
-            Response.Listener<JSONArray> thanhcong = new Response.Listener<JSONArray>() {
-                @Override
-                public void onResponse(JSONArray jsonArray) {
-                    for (int i = 0; i < jsonArray.length(); i++) {
-                        try {
-                            JSONObject jsonObject = jsonArray.getJSONObject(i);
-                            dataProduct.add(new PRODUCTS(jsonObject.getString("masp"),
-                                    jsonObject.getString("machude"),
-                                    jsonObject.getString("tensp"),
-                                    jsonObject.getString("hinhsp"),
-                                    jsonObject.getInt("giasp")));
-                        } catch (JSONException e) {
-                            Toast.makeText(getContext(), "Lỗi ", Toast.LENGTH_LONG).show();
-                        }
-                    }
-                }
-            };
-            Response.ErrorListener thatbai = new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(getContext(), "Lỗi kết nối", Toast.LENGTH_LONG).show();
-                }
-            };
-            JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(SERVER.productpath, thanhcong, thatbai);
-            requestQueue.add(jsonArrayRequest);
-            return dataProduct;
-        }
-
-        @Override
-        protected void onPostExecute(ArrayList<PRODUCTS> products) {
-            super.onPostExecute(products);
-            product_adapter = new PRODUCT_ADAPTER(getContext(), products);
-            recyclerViewProduct.setAdapter(product_adapter);
-            recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        }
-
-    }
 
     void anhxa(View view){
         viewPager2 = view.findViewById(R.id.home_viewPager);
@@ -235,8 +220,16 @@ public class home_page extends Fragment {
         recyclerViewProduct = view.findViewById(R.id.home_products);
         btnCart = view.findViewById(R.id.btnCart);
         edtSeachProducts = view.findViewById(R.id.home_edtSeach);
-//        progressBar = view.findViewById(R.id.progressBarCircular);
+
+        product_adapter = new PRODUCT_ADAPTER(getContext(), dataProduct);
+        recyclerViewProduct.setAdapter(product_adapter);
+        recyclerViewProduct.setLayoutManager(new GridLayoutManager(getContext(), 2));
+
+        category_adapter = new CATEGORY_ADAPTER(getContext(), dataCategory);
+        recyclerViewCategory.setAdapter(category_adapter);
+        recyclerViewCategory.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL, false ));
     }
+
 }
 
 

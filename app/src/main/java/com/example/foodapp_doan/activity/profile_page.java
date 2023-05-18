@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,6 +49,7 @@ public class profile_page extends Fragment {
     private Button btnSignOut;
     public SharedPreferences sharedPreferences;
     public static ArrayList<USERS> users = new ArrayList<>();
+    USERS user = new USERS();
 
     @Nullable
     @Override
@@ -107,7 +109,7 @@ public class profile_page extends Fragment {
                         password = jsonObject.getString("password");
                         Address = jsonObject.getString("address");
                         phone = jsonObject.getString("phone");
-                        avartar = jsonObject.getString("avarta");
+                        avartar = jsonObject.getString("avartar");
 
                         Picasso.get().load(SERVER.imgAvartar+avartar).into(imgAvartar);
                         tvFullNames.setText(fullName);

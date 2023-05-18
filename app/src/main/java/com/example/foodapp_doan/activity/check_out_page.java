@@ -39,16 +39,18 @@ public class check_out_page extends AppCompatActivity {
         setContentView(R.layout.check_out_page);
         anhxa();
         eventClick();
+        getAddress();
         getProductCart();
     }
 
-    void eventClick(){
+    private void eventClick(){
         btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
 
         layoutAddressDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +61,7 @@ public class check_out_page extends AppCompatActivity {
         });
     }
 
-    void getProductCart(){
+    private void getProductCart(){
         productsDAO = new productsDAO(this);
         dataSP = productsDAO.getProducts();
 
@@ -67,6 +69,13 @@ public class check_out_page extends AppCompatActivity {
         rvDataCart.setAdapter(product_checkout_adapter);
         rvDataCart.setLayoutManager(new LinearLayoutManager(this));
         rvDataCart.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
+    }
+
+    private void getAddress(){
+        Intent intent = getIntent();
+        namePay.setText(intent.getStringExtra("nameDelivery"));
+        addressPay.setText(intent.getStringExtra("addressDelivery"));
+        phonePay.setText(intent.getStringExtra("phoneDelivery"));
     }
 
     void anhxa(){
@@ -77,8 +86,8 @@ public class check_out_page extends AppCompatActivity {
         phonePay = findViewById(R.id.phonePay);
         addressPay = findViewById(R.id.addressPay);
         layoutAddressDelivery = findViewById(R.id.layoutAddressDelivery);
-        Intent intent = getIntent();
-        cart_total = intent.getStringExtra("cart_total");
+
+        cart_total = cart_page.cart_total.getText().toString().trim();
         tvCartTotal.setText(cart_total);
     }
 }

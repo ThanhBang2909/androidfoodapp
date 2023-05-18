@@ -63,7 +63,10 @@ public class changePassword_page extends AppCompatActivity {
                 Toast.makeText(this, "Mật khẩu không chính xác", Toast.LENGTH_SHORT).show();
             }
         }else {
-            Toast.makeText(this, "Các trường không được để trống", Toast.LENGTH_SHORT).show();
+            edtCurrentPassword.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            edtNewPassword.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            edtConfirmPassword.setBackground(getResources().getDrawable(R.drawable.bg_edt2));
+            Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }
     }
 

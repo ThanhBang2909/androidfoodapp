@@ -8,6 +8,7 @@
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_btn1.xml" value="0.1595" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_btn2.xml" value="0.1595" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_edt1.xml" value="0.1595" />
+        <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_edt2.xml" value="0.192" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_radius.xml" value="0.1595" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/bg_seach.xml" value="0.1945" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/drawable/ic_baseline_keyboard_arrow_right_24.xml" value="0.136" />
@@ -20,9 +21,10 @@
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/activity_product_bycategory_page.xml" value="0.25" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/activity_register_page.xml" value="0.25" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/activity_splash_screen_page.xml" value="0.25" />
+        <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/add_address_page.xml" value="0.24635416666666668" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/address_delivery_page.xml" value="0.25" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/change_password_page.xml" value="0.25" />
-        <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/check_out_page.xml" value="0.25" />
+        <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/check_out_page.xml" value="0.264" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/home_page.xml" value="0.264" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/item_address_delivery.xml" value="0.20521590423257802" />
         <entry key="..\:/GITTHUB/androidfoodapp/app/src/main/res/layout/item_cart.xml" value="0.25" />
@@ -42,5 +44,12 @@
   </component>
   <component name="ProjectType">
     <option name="id" value="Android" />
+  </component>
+  <component name="VisualizationToolProject">
+    <option name="state">
+      <ProjectState>
+        <option name="scale" value="0.1" />
+      </ProjectState>
+    </option>
   </component>
 </project>

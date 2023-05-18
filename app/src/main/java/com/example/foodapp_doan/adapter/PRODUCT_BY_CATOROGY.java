@@ -1,9 +1,12 @@
 package com.example.foodapp_doan.adapter;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,14 +20,16 @@ import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
-public class ProductByCategory_ADAPTER extends RecyclerView.Adapter<ProductByCategory_ADAPTER.ProductByCategoryViewholder>{
+public class PRODUCT_BY_CATOROGY extends RecyclerView.Adapter<PRODUCT_BY_CATOROGY.ProductByCategoryViewholder> implements Filterable {
 
     Context context;
     ArrayList<PRODUCTS> dataProducts;
+    ArrayList<PRODUCTS> dataOrigin;
 
-    public ProductByCategory_ADAPTER(Context context, ArrayList<PRODUCTS> dataProducts) {
+    public PRODUCT_BY_CATOROGY(Context context, ArrayList<PRODUCTS> dataProducts) {
         this.context = context;
         this.dataProducts = dataProducts;
+        this.dataOrigin = dataProducts;
     }
 
     @NonNull
@@ -46,6 +51,45 @@ public class ProductByCategory_ADAPTER extends RecyclerView.Adapter<ProductByCat
     public int getItemCount() {
         return dataProducts.size();
     }
+
+    @Override
+    public Filter getFilter() {
+        return new ItemFilter();
+    }
+
+
+    private class ItemFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence charSequence) {
+            String chuoitim = charSequence.toString().toLowerCase().trim();
+            FilterResults filterResults = new FilterResults();
+            if (!TextUtils.isEmpty(chuoitim)) {
+                ArrayList<PRODUCTS> tam = new ArrayList<>();
+                for (PRODUCTS sp : dataOrigin) {
+                    if (sp.getTensanpham().toLowerCase().toString().contains(chuoitim))
+                        tam.add(sp);
+                }
+                filterResults.values = tam;
+                filterResults.count = tam.size();
+
+            } else {
+                filterResults.values = dataOrigin;
+                filterResults.count = dataOrigin.size();
+            }
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence charSequence, FilterResults filterResults) {
+            if (filterResults != null && filterResults.count > 0) {
+                dataProducts = (ArrayList<PRODUCTS>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+
 
     class ProductByCategoryViewholder extends RecyclerView.ViewHolder {
 

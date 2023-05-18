@@ -25,7 +25,7 @@ import java.util.ArrayList;
 
 public class cart_page extends AppCompatActivity {
 
-    public TextView cart_total;
+    public static TextView cart_total;
     private Button checkout;
     private RecyclerView rvCart;
     private CART_ADAPTER adapter_cart;
@@ -35,6 +35,7 @@ public class cart_page extends AppCompatActivity {
     private productsDAO productsDAO;
     private ImageView btnBack;
     public double totalPrice = 0;
+    public static String carttotal;
 
     private String iD, name, image;
     private int quantity,price;
@@ -46,8 +47,10 @@ public class cart_page extends AppCompatActivity {
         anhxa();
         eventClick();
         getCart();
+        addProducts();
         getTotalPrice();
     }
+
 
     private void eventClick(){
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -57,17 +60,24 @@ public class cart_page extends AppCompatActivity {
             }
         });
 
+
         checkout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cart_page.this, check_out_page.class);
-                intent.putExtra("cart_total", cart_total.getText().toString().trim());
-                startActivity(intent);
+                if (productsDAO.getProducts().size()>=1){
+                    Intent intent = new Intent(cart_page.this, check_out_page.class);
+                    startActivity(intent);
+                }else {
+                    Toast.makeText(context, "Gio hang trong", Toast.LENGTH_SHORT).show();
+                }
             }
         });
+
+
     }
 
-    private void getCart(){
+    private void addProducts(){
+
         Intent intent = getIntent();
         iD = intent.getStringExtra("id");
         name = intent.getStringExtra("name");
@@ -75,8 +85,13 @@ public class cart_page extends AppCompatActivity {
         price = intent.getIntExtra("price",1);
         quantity = intent.getIntExtra("quantity", 1);
 
-        productsDAO = new productsDAO(this);
         productsDAO.insertProduct(iD, name, image, price, quantity);
+
+    }
+
+
+    private void getCart(){
+
         dataSP = productsDAO.getProducts();
 
         adapter_cart = new CART_ADAPTER(this, dataSP);
@@ -85,15 +100,18 @@ public class cart_page extends AppCompatActivity {
         rvCart.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
     }
 
+
     void getTotalPrice(){
         for (PRODUCTS sp : dataSP) {
             totalPrice += sp.getGiasanpham() * sp.getSoluong();
         }
     }
 
+
     public void updateTotal(double total) {
         cart_total.setText(total+"Đ");
     }
+
 
     void anhxa(){
         cart_total = findViewById(R.id.cart_total);
@@ -101,6 +119,7 @@ public class cart_page extends AppCompatActivity {
         rvCart = findViewById(R.id.rvCart);
         btnBack = findViewById(R.id.btnBack);
         cart_total.setText(totalPrice + "Đ");
+        productsDAO = new productsDAO(this);
         context = this;
 
         try {

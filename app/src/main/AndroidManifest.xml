@@ -16,7 +16,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Foodapp_doan"
         android:usesCleartextTraffic="true"
+        tools:ignore="Accessibility,UnusedAttribute"
         tools:targetApi="31">
+        <activity
+            android:name=".activity.add_address_page"
+            android:exported="false" />
         <activity
             android:name=".activity.address_delivery_page"
             android:exported="false" />

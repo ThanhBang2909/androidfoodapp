@@ -72,7 +72,7 @@
             app:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
         <LinearLayout
-            android:id="@+id/linearLayout"
+            android:id="@+id/Sign_FB"
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
@@ -100,6 +100,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/Sign_GG"
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginTop="24dp"
@@ -107,7 +108,7 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.78"
-            app:layout_constraintStart_toEndOf="@+id/linearLayout"
+            app:layout_constraintStart_toEndOf="@+id/Sign_FB"
             app:layout_constraintTop_toBottomOf="@+id/passwordLogin">
 
             <ImageView
@@ -138,7 +139,7 @@
             android:textColor="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+            app:layout_constraintTop_toBottomOf="@+id/Sign_FB" />
 
         <Button
             android:id="@+id/btnBackRegister"

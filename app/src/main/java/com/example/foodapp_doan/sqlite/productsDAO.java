@@ -71,4 +71,5 @@ public class productsDAO {
         values.put("soLuong", quantity);
         db.update("CART", values, "maSanPham=?", new String[]{id});
     }
+
 }
