@@ -37,7 +37,6 @@ public class productsDAO {
         Cursor cursor = db.query("CART", null, "maSanPham=?", new String[]{id}, null, null, null);
 
         if (cursor.moveToFirst()) {
-            // Nếu sản phẩm tồn tại trong giỏ hàng, cập nhật số lượng + 1
             int currentQuantity = cursor.getInt(cursor.getColumnIndexOrThrow("soLuong"));
             int newQuantity = currentQuantity + quantity;
 
@@ -47,7 +46,6 @@ public class productsDAO {
             db.update("CART", values, "maSanPham=?", new String[]{id});
 
         } else {
-            // Nếu Sản phẩm không tồn tại trong giỏ hàng, thêm hàng mới
             ContentValues values = new ContentValues();
             values.put("maSanPham", id);
             values.put("tenSanPham", name);
@@ -70,6 +68,11 @@ public class productsDAO {
         ContentValues values = new ContentValues();
         values.put("soLuong", quantity);
         db.update("CART", values, "maSanPham=?", new String[]{id});
+    }
+
+    public void reloadcart(){
+        db.delete("CART", null, null);
+        db.close();
     }
 
 }

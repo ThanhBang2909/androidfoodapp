@@ -40,16 +40,15 @@ import java.util.ArrayList;
 
 public class profile_page extends Fragment {
 
-    private LinearLayout editProfile;
+    private LinearLayout editProfile ;
     public static String email;
     private ImageView imgAvartar;
     private String fullName, phone, Address, avartar, password;
     private TextView tvFullNames;
-    private TextView changePassword;
+    private TextView changePassword , Transaction_history;
     private Button btnSignOut;
     public SharedPreferences sharedPreferences;
     public static ArrayList<USERS> users = new ArrayList<>();
-    USERS user = new USERS();
 
     @Nullable
     @Override
@@ -83,6 +82,14 @@ public class profile_page extends Fragment {
                 Intent intent = new Intent(getContext(), changePassword_page.class);
                 intent.putExtra("password", password);
                 intent.putExtra("email", email);
+                startActivity(intent);
+            }
+        });
+
+        Transaction_history.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), get_order_page.class);
                 startActivity(intent);
             }
         });
@@ -166,6 +173,8 @@ public class profile_page extends Fragment {
         tvFullNames = view.findViewById(R.id.tvNameCus);
         changePassword = view.findViewById(R.id.changePassword);
         btnSignOut = view.findViewById(R.id.btnSignOut);
+        Transaction_history = view.findViewById(R.id.Transaction_history);
+
         sharedPreferences = getContext().getSharedPreferences("myPrefs", Context.MODE_PRIVATE);
         email = sharedPreferences.getString("email","");
         users.add(new USERS(fullName,Address,phone,avartar,password));

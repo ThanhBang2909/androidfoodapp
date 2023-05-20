@@ -46,8 +46,8 @@ public class cart_page extends AppCompatActivity {
         setContentView(R.layout.activity_cart_page);
         anhxa();
         eventClick();
-        getCart();
         addProducts();
+        getCart();
         getTotalPrice();
     }
 
@@ -93,7 +93,6 @@ public class cart_page extends AppCompatActivity {
     private void getCart(){
 
         dataSP = productsDAO.getProducts();
-
         adapter_cart = new CART_ADAPTER(this, dataSP);
         rvCart.setAdapter(adapter_cart);
         rvCart.setLayoutManager(new LinearLayoutManager(this));

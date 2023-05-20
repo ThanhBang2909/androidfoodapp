@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1036413792749",
+    "project_id": "qlfoodapp-5f918",
+    "storage_bucket": "qlfoodapp-5f918.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1036413792749:android:5933c0d8678fb2762df7e4",
+        "android_client_info": {
+          "package_name": "com.example.foodapp_doan"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1036413792749-3p9560bsn6oe5dqt84cpisrm4p8o8knr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBgRs4Dq2pecAz7_odlO-xLKj5_SdiXyLo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1036413792749-3p9560bsn6oe5dqt84cpisrm4p8o8knr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

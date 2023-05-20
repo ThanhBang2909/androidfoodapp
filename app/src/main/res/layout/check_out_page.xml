@@ -208,12 +208,12 @@
             android:id="@+id/btnCheckOut"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:background="#EEFF5722"
             android:layout_weight="1"
+            android:background="#EEFF5722"
             android:text="Đặt hàng"
             android:textColor="@color/white"
-            android:textStyle="bold"
-            android:textSize="20sp"/>
+            android:textSize="20sp"
+            android:textStyle="bold" />
 
     </LinearLayout>
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_margin="20dp"
+    app:cardCornerRadius="5dp">
+
+    <LinearLayout
+        android:id="@+id/layoutOrder"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="20dp"
+            android:layout_weight="4">
+
+            <TextView
+                android:id="@+id/tvStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvMaHD"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Mã hóa đơn"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvNameOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tên"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvPhoneOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Phone"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvAddressOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="address"
+                android:textSize="20sp"/>
+
+            <TextView
+                android:id="@+id/tvTotalOrder"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Thành tiền"
+                android:textSize="20sp"/>
+
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/btnNavDetail"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_baseline_keyboard_arrow_right_24"/>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>

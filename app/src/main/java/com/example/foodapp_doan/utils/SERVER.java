@@ -16,5 +16,9 @@ public class SERVER {
     public static String changePasswordPath = serverip + ":8080/csdlfoodapp/changePassword.php";
     public static String getAddressDeliveryPath = serverip + ":8080/csdlfoodapp/getAddressByEmail.php";
     public static String add_address_delivery = serverip + ":8080/csdlfoodapp/add_address_delivery.php";
+    public static String billPath = serverip + ":8080/csdlfoodapp/customer_Infomation.php";
+    public static String billdetailPath = serverip + ":8080/csdlfoodapp/orderdetail.php";
+    public static String orderPath = serverip + ":8080/csdlfoodapp/getOrder.php";
+    public static String orderDetailPath = serverip + ":8080/csdlfoodapp/getOrderById.php";
 
 }

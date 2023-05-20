@@ -5,7 +5,7 @@ import java.io.Serializable;
 public class PRODUCTS implements Serializable {
 
     private String masanpham, machude, tensanpham, hinhsanpham;
-    private int giasanpham, soluong;
+    private int giasanpham, soluong, thanhTien;
 
     public PRODUCTS(String masanpham, String machude, String tensanpham, String hinhsanpham, int giasanpham) {
         this.masanpham = masanpham;
@@ -43,6 +43,15 @@ public class PRODUCTS implements Serializable {
         this.tensanpham = tensanpham;
         this.hinhsanpham = hinhsanpham;
         this.giasanpham = giasanpham;
+    }
+
+    public PRODUCTS(String masanpham, String tensanpham, int giasanpham,String hinhsanpham ,int soluong, int thanhTien) {
+        this.masanpham = masanpham;
+        this.tensanpham = tensanpham;
+        this.giasanpham = giasanpham;
+        this.hinhsanpham = hinhsanpham;
+        this.soluong = soluong;
+        this.thanhTien = thanhTien;
     }
 
     public PRODUCTS() {
@@ -96,5 +105,13 @@ public class PRODUCTS implements Serializable {
 
     public void setGiasanpham(int giasanpham) {
         this.giasanpham = giasanpham;
+    }
+
+    public int getThanhTien() {
+        return thanhTien;
+    }
+
+    public void setThanhTien(int thanhTien) {
+        this.thanhTien = thanhTien;
     }
 }
