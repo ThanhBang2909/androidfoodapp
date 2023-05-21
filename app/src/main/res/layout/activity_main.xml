@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_alignParentBottom="true"
-        android:background="#E9F8F9"
+        android:background="#FFFFFF"
         android:id="@+id/bottomnavigation"
         app:itemIconTint="@color/black"
         app:itemTextColor="@color/black"

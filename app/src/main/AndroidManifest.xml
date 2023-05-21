@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.example.foodapp_doan">
+    package="com.example.foodappdoan">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <uses-permission
         android:name="com.google.android.gms.permission.AD_ID"
-        tools:node="remove" />
+        tools:node="remove"/>
+
 
     <application
-        android:name=".fcm.PushNotification"
+        android:name="com.example.foodappdoan.fcm.PushNotification"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -24,14 +26,14 @@
         tools:ignore="Accessibility,UnusedAttribute"
         tools:targetApi="31">
         <activity
-            android:name=".activity.detail_order_page"
+            android:name="com.example.foodappdoan.activity.detail_order_page"
             android:exported="false" />
         <activity
-            android:name=".activity.get_order_page"
+            android:name="com.example.foodappdoan.activity.get_order_page"
             android:exported="false" />
 
         <service
-            android:name=".fcm.MessageFirebase"
+            android:name="com.example.foodappdoan.fcm.MessageFirebase"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
@@ -39,37 +41,37 @@
         </service>
 
         <activity
-            android:name=".activity.add_address_page"
+            android:name="com.example.foodappdoan.activity.add_address_page"
             android:exported="false" />
         <activity
-            android:name=".activity.address_delivery_page"
+            android:name="com.example.foodappdoan.activity.address_delivery_page"
             android:exported="false" />
         <activity
-            android:name=".activity.splash_screen_page"
+            android:name="com.example.foodappdoan.activity.splash_screen_page"
             android:exported="false" />
         <activity
-            android:name=".activity.check_out_page"
+            android:name="com.example.foodappdoan.activity.check_out_page"
             android:exported="false" />
         <activity
-            android:name=".activity.changePassword_page"
+            android:name="com.example.foodappdoan.activity.changePassword_page"
             android:exported="false" />
         <activity
-            android:name=".activity.cart_page"
+            android:name="com.example.foodappdoan.activity.cart_page"
             android:exported="false" />
         <activity
-            android:name=".activity.edit_profile_page"
+            android:name="com.example.foodappdoan.activity.edit_profile_page"
             android:exported="false" />
         <activity
-            android:name=".activity.detail_product_page"
+            android:name="com.example.foodappdoan.activity.detail_product_page"
             android:exported="false" />
         <activity
-            android:name=".activity.product_by_category_page"
+            android:name="com.example.foodappdoan.activity.product_by_category_page"
             android:exported="false" />
         <activity
-            android:name=".activity.register_page"
+            android:name="com.example.foodappdoan.activity.register_page"
             android:exported="false" />
         <activity
-            android:name=".activity.login_page"
+            android:name="com.example.foodappdoan.activity.login_page"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -77,8 +79,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <meta-data
+            android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"/>
+        <meta-data
+            android:name="com.facebook.sdk.ClientToken"
+            android:value="@string/facebook_client_token" />
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
         <activity
-            android:name=".MainActivity"
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.foodappdoan.MainActivity"
             android:exported="true" />
 
         <meta-data
