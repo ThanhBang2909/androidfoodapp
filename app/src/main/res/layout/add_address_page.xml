@@ -99,7 +99,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Lưu"
-        android:background="@drawable/bg_btn2"
+        android:textColor="@color/white"
+        android:background="@drawable/bg_btn3"
         android:layout_marginTop="10dp"
         android:layout_marginHorizontal="20dp"/>
 

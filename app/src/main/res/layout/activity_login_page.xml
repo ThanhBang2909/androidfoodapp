@@ -28,7 +28,7 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="2dp"
             android:fontFamily="@font/aclonica"
             android:text="Login"
             android:textColor="@color/black"
@@ -46,9 +46,10 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/bg_edt1"
-            android:hint="Email"
+            android:hint="   Email"
             android:minHeight="50dp"
             android:paddingLeft="10dp"
+            android:drawableLeft="@drawable/ic_baseline_email_24"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.4"
@@ -62,25 +63,38 @@
             android:layout_marginHorizontal="20dp"
             android:layout_marginTop="16dp"
             android:background="@drawable/bg_edt1"
-            android:hint="Password"
+            android:hint="   Password"
             android:inputType="textPassword"
             android:minHeight="50dp"
+            android:drawableLeft="@drawable/ic_baseline_lock_24"
             android:paddingLeft="10dp"
             android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/emailLogin" />
 
+        <TextView
+            android:id="@+id/tvForgotPass"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginTop="12dp"
+            android:text="Forgot password ?"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/passwordLogin" />
+
         <LinearLayout
             android:id="@+id/Sign_FB"
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="20dp"
             android:background="@drawable/bg_radius"
             android:orientation="horizontal"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/passwordLogin">
+            app:layout_constraintTop_toBottomOf="@+id/tvForgotPass">
 
             <ImageView
                 android:layout_width="40dp"
@@ -103,11 +117,11 @@
             android:id="@+id/Sign_GG"
             android:layout_width="150dp"
             android:layout_height="60dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="52dp"
             android:background="@drawable/bg_radius"
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.78"
+            app:layout_constraintHorizontal_bias="0.824"
             app:layout_constraintStart_toEndOf="@+id/Sign_FB"
             app:layout_constraintTop_toBottomOf="@+id/passwordLogin">
 
@@ -136,7 +150,7 @@
             android:layout_marginTop="24dp"
             android:background="@drawable/bg_btn2"
             android:text="Login"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/Sign_FB" />
@@ -146,8 +160,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/bg_btn2"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/bg_btn4"
             android:text="Register"
             android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

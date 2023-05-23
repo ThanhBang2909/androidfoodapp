@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#C3AEA9A9"
     android:orientation="vertical"
     tools:context=".activity.cart_page">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp">
+        android:background="@color/white"
+        android:layout_height="70dp">
 
         <ImageView
             android:id="@+id/btnBack"
@@ -28,13 +30,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="8dp"
             android:text="My Cart"
             android:textColor="@color/black"
             android:textSize="30dp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.392"
+            app:layout_constraintHorizontal_bias="0.383"
             app:layout_constraintStart_toEndOf="@+id/btnBack"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,13 +44,16 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvCart"
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="450dp"/>
 
     <LinearLayout
+        android:layout_marginTop="1dp"
+        android:background="@color/white"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/bg_bottom"
         android:orientation="vertical">
 
         <LinearLayout
@@ -89,8 +94,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="20dp"
-            android:background="@drawable/bg_btn2"
-            android:text="Buy Now"
+            android:background="@drawable/bg_btn3"
+            android:text="Thanh toán"
             android:textColor="#D6F8F8" />
 
     </LinearLayout>

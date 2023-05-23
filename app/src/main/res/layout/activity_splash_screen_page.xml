@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_splash_screen"
+    android:background="@drawable/background1"
     tools:context=".activity.splash_screen_page">
 
 </androidx.constraintlayout.widget.ConstraintLayout>

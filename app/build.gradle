@@ -7,7 +7,7 @@ android {
     compileSdk 33
 
     defaultConfig {
-        applicationId "com.example.foodapp_doan"
+        applicationId "com.example.foodOrderApp"
         minSdk 25
         targetSdk 32
         versionCode 1
@@ -49,6 +49,5 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'com.google.firebase:firebase-messaging'
 
-    implementation 'com.facebook.android:facebook-login:latest.release'
 
 }
