@@ -33,7 +33,6 @@ public class PRODUCT_ADAPTER extends RecyclerView.Adapter<PRODUCT_ADAPTER.produc
         this.context = context;
         this.dataProducts = dataProducts;
         this.dataOrigin = dataProducts;
-        notifyDataSetChanged();
     }
 
     @NonNull

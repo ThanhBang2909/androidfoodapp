@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
@@ -27,6 +28,7 @@ public class forgot_password_page extends AppCompatActivity {
     private EditText edtMail, edtNewPass;
     private Button btnSent;
     private String mail, newPass;
+    private ImageView btnBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -93,6 +95,14 @@ public class forgot_password_page extends AppCompatActivity {
                 forgotPassword();
             }
         });
+
+
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
 
@@ -101,5 +111,6 @@ public class forgot_password_page extends AppCompatActivity {
         edtMail = findViewById(R.id.emailForgot);
         edtNewPass = findViewById(R.id.newPassForgot);
         btnSent = findViewById(R.id.btnSendMail);
+        btnBack = findViewById(R.id.btnBack);
     }
 }

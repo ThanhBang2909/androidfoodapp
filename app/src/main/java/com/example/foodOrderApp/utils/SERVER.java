@@ -1,7 +1,7 @@
 package com.example.foodOrderApp.utils;
 
 public class SERVER {
-    public static String serverip = "http://192.168.4.40";
+    public static String serverip = "http://172.20.10.2";
     public static String slidepath = serverip +":8080/csdlfoodapp/slides/";
     public static String category = serverip +":8080/csdlfoodapp/category.php";
     public static String imgCategory = serverip +":8080/csdlfoodapp/category/";
@@ -20,7 +20,12 @@ public class SERVER {
     public static String billdetailPath = serverip + ":8080/csdlfoodapp/orderdetail.php";
     public static String orderPath = serverip + ":8080/csdlfoodapp/getOrder.php";
     public static String orderDetailPath = serverip + ":8080/csdlfoodapp/getOrderById.php";
+    public static String sendMail = serverip + ":8080/csdlfoodapp/sentmail.php";
+    public static String test = serverip + ":8080/csdlfoodapp/test.php?page=";
+    public static String addNotification = serverip + ":8080/csdlfoodapp/set_notification.php";
+    public static String getNotification = serverip + ":8080/csdlfoodapp/get_notification.php";
 
-    //950804654788-tecajugtq3htnns3vr28qmu6r3plqhgd.apps.googleusercontent.com
+
+
 
 }

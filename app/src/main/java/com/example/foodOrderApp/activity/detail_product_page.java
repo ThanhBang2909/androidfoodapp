@@ -15,7 +15,7 @@ import com.squareup.picasso.Picasso;
 
 public class detail_product_page extends AppCompatActivity {
 
-    private ImageView imgProductDetail, btnBack, btnMax, btnMin;
+    private ImageView imgProductDetail, btnBack;
     private TextView tvNameProductDetail, tvPriceDetail, tvQuality,tvDetail;
     private Button btnAddtocart;
     private String maSanPham, name, hinh, detail;
@@ -56,33 +56,13 @@ public class detail_product_page extends AppCompatActivity {
                 bundle.putString("name", name);
                 bundle.putString("image", hinh);
                 bundle.putInt("price", gia);
-                bundle.putInt("quantity", totalQuality);
+                bundle.putInt("quantity", 1);
                 intent.putExtras(bundle);
                 startActivity(intent);
+                finish();
             }
         });
 
-
-        btnMax.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (totalQuality<10){
-                    totalQuality ++;
-                    tvQuality.setText(totalQuality+"");
-                }
-            }
-        });
-
-
-        btnMin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (totalQuality>1){
-                    totalQuality--;
-                    tvQuality.setText(totalQuality+"");
-                }
-            }
-        });
     }
 
     /**
@@ -116,10 +96,6 @@ public class detail_product_page extends AppCompatActivity {
         imgProductDetail = findViewById(R.id.imgProductDetail);
         btnBack = findViewById(R.id.btnDetailBack);
         btnAddtocart = findViewById(R.id.btnAddCard);
-        btnMax = findViewById(R.id.btnMax);
-        btnMin = findViewById(R.id.btnMin);
         tvDetail = findViewById(R.id.tvDetail);
-        tvQuality = findViewById(R.id.tvQuantity);
-        tvQuality.setText(totalQuality+"");
     }
 }

@@ -23,10 +23,12 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodOrderApp.MainActivity;
 import com.example.foodOrderApp.R;
+import com.example.foodOrderApp.model.PRODUCTS;
 import com.example.foodOrderApp.utils.SERVER;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -35,6 +37,10 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,7 +54,6 @@ public class login_page extends AppCompatActivity {
     public static boolean isFirtstTimeLogin;
     private LinearLayout Sign_GG;
     private TextView tvForgotPass;
-
     private GoogleSignInOptions gso;
     private GoogleSignInClient gsc;
 
@@ -216,6 +221,7 @@ public class login_page extends AppCompatActivity {
         Intent intent = new Intent(login_page.this, MainActivity.class);
         startActivity(intent);
     }
+
 
 
     void anhxa(){

@@ -99,6 +99,7 @@ public class address_delivery_page extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(address_delivery_page.this, add_address_page.class);
                 startActivity(intent);
+                finish();
             }
         });
     }

@@ -10,20 +10,24 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
+import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.foodOrderApp.R;
 import com.example.foodOrderApp.adapter.CATEGORY_ADAPTER;
@@ -60,14 +64,18 @@ public class home_page extends Fragment {
 
     private EditText edtSeachProducts;
 
+    private ProgressBar loadingPB;
+    private NestedScrollView nestedSV;
 
+    int page = 1;
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         anhxa(view);
         loadCategory();
-        loadProduct();
+        //loadProduct();
+        getDataFromAPI(page);
     }
 
     @Nullable
@@ -209,6 +217,19 @@ public class home_page extends Fragment {
                 startActivity(intent);
             }
         });
+
+
+        nestedSV.setOnScrollChangeListener(new NestedScrollView.OnScrollChangeListener() {
+            @Override
+            public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+                if (scrollY == v.getChildAt(0).getMeasuredHeight() - v.getMeasuredHeight()) {
+                    page++;
+                    loadingPB.setVisibility(View.VISIBLE);
+                    getDataFromAPI(page);
+                    product_adapter.notifyDataSetChanged();
+                }
+            }
+        });
     }
 
     /**
@@ -239,6 +260,44 @@ public class home_page extends Fragment {
     }
 
 
+    /**
+     *
+     * LOAD PRODUCT THEO PAGE
+     *
+     * */
+
+    private void getDataFromAPI(int page) {
+        RequestQueue requestQueue = Volley.newRequestQueue(getContext());
+        JsonObjectRequest jsonObjectRequest = new JsonObjectRequest(Request.Method.GET, SERVER.test+page, null, new Response.Listener<JSONObject>() {
+            @Override
+            public void onResponse(JSONObject response) {
+                try {
+                    JSONArray dataArray = response.getJSONArray("products");
+                    for (int i = 0; i < dataArray.length(); i++) {
+                        JSONObject jsonObject = dataArray.getJSONObject(i);
+                        dataProduct.add(new PRODUCTS(jsonObject.getString("maSanPham"),
+                                jsonObject.getString("maChuDe"),
+                                jsonObject.getString("tenSanPham"),
+                                jsonObject.getString("hinhSanPham"),
+                                jsonObject.getInt("giaSanPham"),
+                                jsonObject.getString("mota")));
+                        product_adapter.notifyDataSetChanged();
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                // handling on error listener method.
+                Toast.makeText(getContext(), "Fail to get data..", Toast.LENGTH_SHORT).show();
+            }
+        });
+        requestQueue.add(jsonObjectRequest);
+    }
+
+
 
     void anhxa(View view){
         viewPager2 = view.findViewById(R.id.home_viewPager);
@@ -246,6 +305,9 @@ public class home_page extends Fragment {
         recyclerViewProduct = view.findViewById(R.id.home_products);
         btnCart = view.findViewById(R.id.btnCart);
         edtSeachProducts = view.findViewById(R.id.home_edtSeach);
+
+        loadingPB = view.findViewById(R.id.idPBLoading);
+        nestedSV = view.findViewById(R.id.homePage);
 
         product_adapter = new PRODUCT_ADAPTER(getContext(), dataProduct);
         recyclerViewProduct.setAdapter(product_adapter);

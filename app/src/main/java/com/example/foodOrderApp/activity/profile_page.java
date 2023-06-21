@@ -159,7 +159,6 @@ public class profile_page extends Fragment {
                         editor.putBoolean("isFirstTimeLogin", true);
                         editor.clear();
                         editor.apply();
-                        productsDAO.reloadcart();
                         startActivity(intent);
                     }
                 });

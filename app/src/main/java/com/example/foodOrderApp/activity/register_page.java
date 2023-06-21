@@ -34,6 +34,8 @@ public class register_page extends AppCompatActivity {
     private String email, password, fullName, address, phone;
     private Button btnReg;
     private TextView  tvLogin;
+    private String message = "Chúc mừng bạn đã đăng ký tài khoảng thành công.";
+    private String subject = "Đăng ký tài khoảng thành công";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,6 +78,7 @@ public class register_page extends AppCompatActivity {
                     public void onResponse(String response) {
                         if (response.equals("Success")) {
                             Toast.makeText(register_page.this, "Đăng ký thành công", Toast.LENGTH_SHORT).show();
+                            sentMail(email, message, subject);
                             Intent intent = new Intent(register_page.this, login_page.class);
                             startActivity(intent);
                             finish();
@@ -129,6 +132,44 @@ public class register_page extends AppCompatActivity {
 
         return matcher.matches();
 
+    }
+
+
+    /**
+     *
+     * Gửi mail xác nhận khi đăng ký tài khoảng thành công.
+     *
+     * */
+
+    private void sentMail(String email, String message, String subject){
+        String url = SERVER.sendMail+"?email="+email+"&&message="+message+"&&subject="+subject;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        // Tạo một StringRequest để gửi email
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ server nếu cần
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi nếu có
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("subject", subject);
+                params.put("message", message);
+                return params;
+            }
+        };
+
+        requestQueue.add(stringRequest);
     }
 
 

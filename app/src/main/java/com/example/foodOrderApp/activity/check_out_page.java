@@ -41,7 +41,7 @@ import java.util.Map;
 public class check_out_page extends AppCompatActivity {
 
     private RecyclerView rvDataCart;
-    public ArrayList<PRODUCTS> dataSP = new ArrayList<>();
+    public static ArrayList<PRODUCTS> dataSP = new ArrayList<>();
     private productsDAO productsDAO;
     private PRODUCT_CHECKOUT_ADAPTER product_checkout_adapter;
     private ImageView btnBack;
@@ -51,6 +51,8 @@ public class check_out_page extends AppCompatActivity {
     private Button btnCheckOut;
     public SharedPreferences sharedPreferences;
     private String email;
+    private String message ;
+    private String subject = "Đặt hàng thành công.";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +153,12 @@ public class check_out_page extends AppCompatActivity {
                                 if(response.equals("1")) {
                                     dataSP.clear();
                                     productsDAO.reloadcart();
+                                    message = "Đặt hàng thành công.\nMã đơn hàng là: "+madonhang+
+                                            "\nTên người nhận là: "+name+
+                                            "\nSố điện thoại người nhận là : "+phone+
+                                            "\nĐịa chỉ giao hàng là: "+address+
+                                            "\nSố tiền thanh toán là: "+cart_total;
+                                    sentMail(email,message,subject);
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                     startActivity(intent);
                                 }else{
@@ -213,6 +221,44 @@ public class check_out_page extends AppCompatActivity {
         }else{
             Toast.makeText(this, "Kiem Tra Lai Du Lieu", Toast.LENGTH_SHORT).show();
         }
+    }
+
+
+    /**
+     *
+     * Gửi mail xác nhận khi đặt hàng thành công.
+     *
+     * */
+
+    private void sentMail(String email, String message, String subject){
+        String url = SERVER.sendMail+"?email="+email+"&&message="+message+"&&subject="+subject;
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+        // Tạo một StringRequest để gửi email
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        // Xử lý phản hồi từ server nếu cần
+                    }
+                },
+                new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // Xử lý lỗi nếu có
+                    }
+                }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params = new HashMap<>();
+                params.put("email", email);
+                params.put("subject", subject);
+                params.put("message", message);
+                return params;
+            }
+        };
+
+        requestQueue.add(stringRequest);
     }
 
 
