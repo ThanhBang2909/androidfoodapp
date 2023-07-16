@@ -5,12 +5,19 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -159,8 +166,7 @@ public class check_out_page extends AppCompatActivity {
                                             "\nĐịa chỉ giao hàng là: "+address+
                                             "\nSố tiền thanh toán là: "+cart_total;
                                     sentMail(email,message,subject);
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
+                                    showDialog();
                                 }else{
                                     Toast.makeText(check_out_page.this, "Du lieu gio hang da bi loi", Toast.LENGTH_SHORT).show();
                                 }
@@ -259,6 +265,46 @@ public class check_out_page extends AppCompatActivity {
         };
 
         requestQueue.add(stringRequest);
+    }
+
+
+    /**
+     *
+     * Show Dialog khi mua hàng thành công.
+     *
+     * */
+
+    private void showDialog(){
+
+        final Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.dialog_congratulations);
+        Window window = dialog.getWindow();
+
+        if (window == null) {
+            return;
+        }
+
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT, WindowManager.LayoutParams.MATCH_PARENT);
+        window.setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        WindowManager.LayoutParams windowAttribue = window.getAttributes();
+        windowAttribue.gravity = Gravity.TOP;
+        window.setAttributes(windowAttribue);
+        dialog.setCancelable(true);
+
+
+        Button btnContinue = dialog.findViewById(R.id.btnContinue);
+
+        btnContinue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        dialog.show();
     }
 
 

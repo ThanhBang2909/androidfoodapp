@@ -59,6 +59,8 @@ public class profile_page extends Fragment {
         return view;
     }
 
+
+
     void eventClick(){
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
