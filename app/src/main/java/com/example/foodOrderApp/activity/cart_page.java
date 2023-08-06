@@ -148,6 +148,7 @@ public class cart_page extends AppCompatActivity {
         productsDAO = new productsDAO(this);
         context = this;
 
+
         try {
             DBHelper dbHelper = new DBHelper(this);
             db = dbHelper.getWritableDatabase();
